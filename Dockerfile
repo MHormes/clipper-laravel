@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.4.27-apache
 
 # 1. Install system dependencies (libzip-dev toegevoegd voor de PHP zip extensie)
 # Node 22 via NodeSource — required by pnpm 11
