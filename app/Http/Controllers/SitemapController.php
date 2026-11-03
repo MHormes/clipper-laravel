@@ -20,6 +20,7 @@ class SitemapController extends Controller
             ['url' => url('/series'), 'priority' => '0.8', 'freq' => 'weekly'],
             ['url' => url('/my-series'), 'priority' => '0.7', 'freq' => 'weekly'],
             ['url' => url('/clippers'), 'priority' => '0.7', 'freq' => 'weekly'],
+            ['url' => url('/install'), 'priority' => '0.5', 'freq' => 'monthly'],
             ['url' => url('/privacy'), 'priority' => '0.3', 'freq' => 'monthly'],
             ['url' => url('/terms'), 'priority' => '0.3', 'freq' => 'monthly'],
         ];
