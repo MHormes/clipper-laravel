@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
 import NoteModal from '@/components/modal/NoteModal.vue';
 import Skeleton from '@/components/ui/Skeleton.vue';
@@ -329,12 +330,8 @@ const confirmDelete = () => {
 
                     <!-- Action Buttons - RESTORED TO GRID -->
                     <div v-if="canManageCollection" class="grid grid-cols-1 gap-3 pt-4 sm:grid-cols-2">
-                        <button @click="toggleAll"
-                            class="group/btn flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-black uppercase transition-all"
-                            :class="isFullyCollected
-                                ? 'border border-error/20 bg-error/10 text-error shadow-sm hover:bg-error hover:text-button-content!'
-                                : 'bg-primary text-button-content shadow-lg shadow-primary/20 hover:bg-primary hover:text-button-content!'
-                                ">
+                        <AppButton :variant="isFullyCollected ? 'danger-soft' : 'primary'"
+                            class="group/btn h-11 w-full font-black uppercase" @click="toggleAll">
                             <CheckCheck v-if="isFullyCollected" class="h-4 w-4" />
                             <Heart v-else class="h-4 w-4 fill-current transition-transform group-hover/btn:scale-110" />
                             {{
@@ -342,40 +339,30 @@ const confirmDelete = () => {
                                     ? 'Uncollect Series'
                                     : 'Collect Complete Series'
                             }}
-                        </button>
+                        </AppButton>
 
                         <div class="grid grid-cols-2 gap-3">
                             <template v-if="isAdmin">
-                                <Link :href="route('series.edit', series.id)"
-                                    class="flex items-center justify-center rounded-xl bg-primary text-sm font-bold text-button-content shadow-lg transition-all hover:bg-primary hover:text-button-content!">
+                                <AppButton :href="route('series.edit', series.id)" class="h-full">
                                     Edit
-                                </Link>
-                                <button @click="showDeleteModal = true"
-                                    class="rounded-xl border border-error/20 bg-error/10 text-center text-sm font-bold text-error shadow-sm transition-all hover:bg-error hover:text-button-content!">
+                                </AppButton>
+                                <AppButton variant="danger-soft" class="h-full" @click="showDeleteModal = true">
                                     Delete
-                                </button>
+                                </AppButton>
                             </template>
                             <template v-else>
-                                <Link :href="route(
-                                    'series.request-clippers',
-                                    series.id,
-                                )
-                                    "
-                                    class="col-span-2 flex items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-sm font-bold text-primary shadow-sm transition-all hover:bg-primary hover:text-button-content!">
+                                <AppButton :href="route('series.request-clippers', series.id)" variant="outline-primary"
+                                    class="col-span-2 h-full bg-primary/10">
                                     Request Clippers
-                                </Link>
+                                </AppButton>
                             </template>
                         </div>
                     </div>
                     <div v-else class="pt-4">
-                        <Link :href="route('series.show', {
-                            series: series.id,
-                            slug: series.slug,
-                        })
-                            "
-                            class="inline-flex w-full items-center justify-center rounded-xl border border-primary/20 bg-primary px-6 py-3 text-sm font-black tracking-wide text-button-content uppercase shadow-lg shadow-primary/20 transition-all hover:bg-primary hover:text-button-content!">
+                        <AppButton :href="route('series.show', { series: series.id, slug: series.slug })"
+                            class="h-11 w-full font-black tracking-wide uppercase">
                             View Series for Yourself
-                        </Link>
+                        </AppButton>
                     </div>
                 </div>
             </div>
@@ -397,7 +384,7 @@ const confirmDelete = () => {
                                     <button @click="
                                         toggleCollection(slot.clipper.id)
                                         " class="rounded-full p-2 transition-all" :class="isOwned(slot.clipper.id)
-                                            ? 'bg-error/10 text-error'
+                                            ? 'bg-error/10 text-error hover:bg-error hover:text-button-content'
                                             : 'bg-muted-background text-muted-content hover:text-primary'
                                             ">
                                         <Heart class="h-6 w-6 md:h-5 md:w-5" :fill="isOwned(slot.clipper.id)
@@ -409,7 +396,7 @@ const confirmDelete = () => {
                                     <button v-if="isOwned(slot.clipper.id)" @click="
                                         openClipperDetails(slot.clipper)
                                         "
-                                        class="rounded-full bg-muted-background p-2 text-muted-content transition-all hover:text-info md:order-first"
+                                        class="rounded-full bg-muted-background p-2 text-muted-content transition-all hover:text-primary md:order-first"
                                         title="Edit notes/location">
                                         <PencilLine class="h-5 w-5 md:h-4 md:w-4" />
                                     </button>

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Checkbox } from '@/components/ui';
 import { Input } from '@/components/ui';
 import { Label } from '@/components/ui';
-import { Spinner } from '@/components/ui';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
@@ -109,16 +108,16 @@ import { route } from 'ziggy-js';
                     <InputError :message="errors.terms" class="ml-2" />
                 </div>
 
-                <Button
+                <AppButton
                     type="submit"
-                    class="mt-2 w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all active:scale-[0.98]"
+                    size="lg"
+                    class="mt-2 w-full"
                     tabindex="6"
-                    :disabled="processing"
+                    :loading="processing"
                     data-test="register-user-button"
                 >
-                    <Spinner v-if="processing" class="mr-2 h-4 w-4" />
                     Create account
-                </Button>
+                </AppButton>
             </div>
 
             <div class="text-center text-sm font-medium text-muted-content">

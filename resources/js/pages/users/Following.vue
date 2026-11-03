@@ -75,7 +75,7 @@ watch(search, () => {
                     <input v-model="search" type="text" placeholder="Search followed users..."
                         class="w-full pl-10 pr-10 py-2.5 bg-primary-background border border-border-color rounded-xl focus:ring-2 focus:ring-primary text-sm shadow-sm" />
                     <button v-if="search" @click="search = ''"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1">
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1 hover:text-primary transition-colors">
                         <X class="w-4 h-4" />
                     </button>
                 </div>

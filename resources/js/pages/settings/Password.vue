@@ -7,7 +7,7 @@ import { edit } from '@/routes/user-password';
 import { Form, Head } from '@inertiajs/vue3';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Input } from '@/components/ui';
 import { Label } from '@/components/ui';
 import { type BreadcrumbItem } from '@/types';
@@ -99,14 +99,12 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         <InputError :message="errors.password_confirmation" />
 
                         <div class="flex items-center gap-4 pt-2">
-                            <Button
-                                :disabled="processing"
-                                class="rounded-xl bg-[var(--primary)] px-8 font-bold text-secondary-content hover:bg-[var(--primary)] transition-all active:scale-95"
+                            <AppButton
+                                :loading="processing"
                                 data-test="update-password-button"
                             >
-                                <Spinner v-if="processing" class="mr-2 h-4 w-4" />
                                 Save Changes
-                            </Button>
+                            </AppButton>
 
                             <Transition
                                 enter-active-class="transition ease-in-out"

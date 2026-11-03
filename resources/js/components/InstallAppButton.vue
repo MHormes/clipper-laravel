@@ -1,31 +1,68 @@
 <script setup lang="ts">
 import { useInstallPrompt } from '@/composables/useInstallPrompt';
-import { Button } from '@/components/ui';
-import { Download } from '@lucide/vue';
+import { Link } from '@inertiajs/vue3';
+import { ChevronRight, Download, Smartphone } from '@lucide/vue';
+import { computed } from 'vue';
 
 interface Props {
     fullWidth?: boolean;
     label?: string;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
     fullWidth: false,
-    label: 'Download mobile app',
+    label: 'Get the app',
 });
 
-const { canInstall, promptInstall } = useInstallPrompt();
+const { canInstall, canPromptNatively, isMobileDevice, promptInstall } = useInstallPrompt();
+
+const subtitle = computed(() => (canPromptNatively.value ? 'Install in one tap' : 'See how to install'));
+
+const icon = computed(() => (isMobileDevice.value ? Smartphone : Download));
+
+// Native prompt installs directly, every other browser goes to the install guide
+const component = computed(() => (canPromptNatively.value ? 'button' : Link));
+
+const attributes = computed(() => (canPromptNatively.value ? { type: 'button' } : { href: '/install' }));
+
+const handleClick = (event: MouseEvent) => {
+    if (!canPromptNatively.value) {
+        return;
+    }
+
+    event.preventDefault();
+    promptInstall();
+};
 </script>
 
 <template>
-    <Button
+    <component
+        :is="component"
         v-if="canInstall"
-        type="button"
-        variant="ghost"
-        class="text-primary-content hover:bg-muted-background"
-        :class="fullWidth ? 'flex w-full justify-start rounded-md px-3 py-2 text-sm font-normal' : 'flex w-full justify-center rounded-md px-0 py-2'"
-        @click="promptInstall"
+        v-bind="attributes"
+        :title="props.label"
+        class="group text-primary-content transition"
+        :class="
+            props.fullWidth
+                ? 'flex w-full items-center gap-3 rounded-xl border border-border-color bg-component-background p-2 text-left hover:border-primary'
+                : 'inline-flex items-center gap-2 rounded-full border border-border-color px-3 py-2 text-sm font-medium hover:border-primary hover:text-primary'
+        "
+        @click="handleClick"
     >
-        <Download class="size-4" />
-        <span :class="fullWidth ? 'truncate' : 'hidden sm:inline'">{{ label }}</span>
-    </Button>
+        <span
+            v-if="props.fullWidth"
+            class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-button-content"
+        >
+            <component :is="icon" class="size-4" />
+        </span>
+        <component :is="icon" v-else class="size-4" />
+
+        <span v-if="props.fullWidth" class="flex min-w-0 flex-1 flex-col">
+            <span class="truncate text-sm font-semibold">{{ props.label }}</span>
+            <span class="truncate text-xs text-muted-content">{{ subtitle }}</span>
+        </span>
+        <span v-else class="hidden sm:inline">{{ props.label }}</span>
+
+        <ChevronRight v-if="props.fullWidth" class="size-4 shrink-0 text-muted-content transition group-hover:translate-x-0.5 group-hover:text-primary" />
+    </component>
 </template>

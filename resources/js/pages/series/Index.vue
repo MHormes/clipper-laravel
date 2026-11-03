@@ -3,8 +3,9 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SeriesCard from '@/components/series/SeriesCard.vue';
 import Pagination from '@/components/Pagination.vue';
 import SortButton from '@/components/SortButton.vue';
+import AppButton from '@/components/AppButton.vue';
 import { useFilters } from '@/util/useFilters';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { Search, X } from '@lucide/vue';
 import { computed } from 'vue';
 import { route } from 'ziggy-js';
@@ -48,15 +49,14 @@ const statusFilters = [
                         <input v-model="search" type="text" placeholder="Search series..."
                             class="w-full pl-10 pr-10 py-2.5 bg-primary-background border border-border-color rounded-xl focus:ring-2 focus:ring-primary text-sm shadow-sm" />
                         <button v-if="search" @click="search = ''"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1">
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1 hover:text-primary transition-colors">
                             <X class="w-4 h-4" />
                         </button>
                     </div>
 
-                    <Link v-if="canCreate" :href="route('series.create')"
-                        class="px-5 py-2.5 bg-primary text-button-content rounded-xl font-bold text-sm hover:bg-primary hover:text-button-content!  transition-all shadow-lg shadow-primary/20">
+                    <AppButton v-if="canCreate" :href="route('series.create')">
                         + {{ isAdmin ? 'REGISTER NEW SERIES' : 'REQUEST NEW SERIES' }}
-                    </Link>
+                    </AppButton>
                 </div>
             </div>
 
@@ -70,8 +70,8 @@ const statusFilters = [
                             <div
                                 class="flex flex-wrap justify-center items-center gap-x-1 gap-y-0.5 bg-border-color/30 p-1 rounded-xl">
                                 <button v-for="f in originFilters" :key="f.value" @click="type = f.value" :class="[
-                                    'px-2 sm:px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-all',
-                                    type === f.value ? 'bg-primary text-button-content shadow-sm' : 'bg-muted-background text-muted-content hover:text-primary-content'
+                                    'px-2 sm:px-4 py-1.5 rounded-full border border-transparent text-[10px] font-black uppercase tracking-wider transition-all',
+                                    type === f.value ? 'bg-primary text-button-content shadow-sm hover:brightness-90' : 'bg-muted-background text-muted-content hover:border-primary/50 hover:text-primary'
                                 ]">
                                     {{ f.label }}
                                 </button>
@@ -86,8 +86,8 @@ const statusFilters = [
                             <div
                                 class="flex flex-wrap justify-center items-center gap-x-1 gap-y-0.5 bg-border-color/30 p-1 rounded-xl">
                                 <button v-for="f in statusFilters" :key="f.value" @click="filter = f.value" :class="[
-                                    'px-2 sm:px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-all',
-                                    filter === f.value ? 'bg-primary text-button-content shadow-sm' : 'bg-muted-background text-muted-content hover:text-primary-content'
+                                    'px-2 sm:px-4 py-1.5 rounded-full border border-transparent text-[10px] font-black uppercase tracking-wider transition-all',
+                                    filter === f.value ? 'bg-primary text-button-content shadow-sm hover:brightness-90' : 'bg-muted-background text-muted-content hover:border-primary/50 hover:text-primary'
                                 ]">
                                     {{ f.label }}
                                 </button>
@@ -129,8 +129,7 @@ const statusFilters = [
                 class="w-full flex flex-col items-center justify-center py-24 bg-component-background rounded-3xl border border-dashed border-border-color">
                 <Search class="w-16 h-16 text-muted-content mb-6" />
                 <h2 class="text-3xl font-black mb-3">No Results Found</h2>
-                <button @click="search = ''"
-                    class="px-8 py-4 bg-muted-background rounded-2xl font-black transition-all">Reset Search</button>
+                <AppButton variant="secondary" size="lg" class="rounded-2xl font-black" @click="resetFilters">Reset Search</AppButton>
             </div>
 
             <Pagination :links="series.links" />

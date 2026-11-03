@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useForm, router } from '@inertiajs/vue3';
 import { geocodingService } from '@/util/geocodingSupport';
+import AppButton from '@/components/AppButton.vue';
 import { MapPin, Search, Loader2, Check, ExternalLink, Copy, ChevronDown, ChevronUp } from '@lucide/vue';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Skeleton, SearchableSelect } from '@/components/ui';
 
@@ -387,7 +388,7 @@ const submit = () => {
 
                     <!-- Copy action -->
                     <div class="flex gap-3 pt-2">
-                        <button
+                        <AppButton
                             type="button"
                             @click="submitCopyTo"
                             :disabled="
@@ -395,7 +396,7 @@ const submit = () => {
                                 copySelectedIds.length === 0 ||
                                 (!copyFields.notes && !copyFields.location_bought)
                             "
-                            class="flex-1 rounded-xl bg-primary py-3 text-xs font-black text-button-content uppercase transition-all hover:bg-primary hover:text-button-content! disabled:opacity-50"
+                            class="h-11 flex-1 text-xs font-black uppercase"
                         >
                             {{
                                 isCopyingToProcessing
@@ -403,14 +404,15 @@ const submit = () => {
                                     : `Copy to ${copySelectedIds.length}
                             clipper${copySelectedIds.length === 1 ? '' : 's'}`
                             }}
-                        </button>
-                        <button
+                        </AppButton>
+                        <AppButton
                             type="button"
                             @click="isCopyingTo = false"
-                            class="bg-muted/10 hover:bg-muted/20 flex-1 rounded-xl border border-border-color py-3 text-xs font-black text-muted-content uppercase transition-all"
+                            variant="outline"
+                            class="h-11 flex-1 text-xs font-black uppercase"
                         >
                             Back
-                        </button>
+                        </AppButton>
                     </div>
                 </div>
 
@@ -473,21 +475,22 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <button
+                        <AppButton
                             @click="isEditing = true"
-                            class="w-full rounded-xl bg-primary py-3 text-sm font-bold text-button-content uppercase shadow-lg shadow-primary/20 transition-all hover:bg-primary hover:text-button-content!"
+                            class="h-11 w-full uppercase"
                         >
                             Edit Details
-                        </button>
-                        <button
+                        </AppButton>
+                        <AppButton
                             @click="
                                 isCopyingTo = true;
                                 fetchCollectedList();
                             "
-                            class="flex w-full items-center justify-center gap-2 rounded-xl border border-border-color bg-component-background py-3 text-sm font-bold text-muted-content uppercase transition-all hover:text-primary-content"
+                            variant="outline"
+                            class="h-11 w-full uppercase"
                         >
-                            <Copy class="h-4 w-4" /> Copy to Other Clippers
-                        </button>
+                            <Copy /> Copy to Other Clippers
+                        </AppButton>
                     </div>
                 </div>
 
@@ -573,15 +576,15 @@ const submit = () => {
                                     </p>
                                 </div>
 
-                                <button
+                                <AppButton
                                     v-if="copyFromSelectedId"
                                     type="button"
                                     @click="applyFromSource"
                                     :disabled="!copyFromFields.notes && !copyFromFields.location_bought"
-                                    class="w-full rounded-xl bg-primary py-2.5 text-xs font-black text-button-content uppercase transition-all hover:bg-primary hover:text-button-content! disabled:opacity-50"
+                                    class="w-full text-xs font-black uppercase"
                                 >
                                     Apply to form
-                                </button>
+                                </AppButton>
                             </template>
                         </div>
                     </div>
@@ -641,27 +644,28 @@ const submit = () => {
                     </div>
 
                     <div class="flex gap-3 pt-2">
-                        <button
+                        <AppButton
                             type="submit"
                             :disabled="form.processing"
-                            class="flex-1 rounded-xl bg-primary py-3 text-xs font-black text-button-content uppercase transition-all hover:bg-primary hover:text-button-content! disabled:opacity-50"
+                            class="h-11 flex-1 text-xs font-black uppercase"
                         >
                             Save Changes
-                        </button>
-                        <button
+                        </AppButton>
+                        <AppButton
                             type="button"
                             @click="isEditing = false"
-                            class="bg-muted/10 hover:bg-muted/20 flex-1 rounded-xl border border-border-color py-3 text-xs font-black text-muted-content uppercase transition-all"
+                            variant="outline"
+                            class="h-11 flex-1 text-xs font-black uppercase"
                         >
                             Cancel
-                        </button>
+                        </AppButton>
                     </div>
                 </form>
             </div>
 
             <button
                 @click="$emit('close')"
-                class="w-full border-t border-border-color bg-component-background py-4 text-[10px] font-black tracking-widest text-muted-content uppercase transition-all hover:bg-muted-background hover:text-primary-content"
+                class="w-full border-t border-border-color bg-component-background py-4 text-[10px] font-black tracking-widest text-muted-content uppercase transition-all hover:bg-muted-background hover:text-primary"
             >
                 Close Modal
             </button>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Input } from '@/components/ui';
 import {
     InputOTP,
@@ -87,19 +87,20 @@ const code = ref<string>('');
                         <InputError :message="errors.code" />
                     </div>
 
-                    <Button 
+                    <AppButton 
                         type="submit" 
-                        class="w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all active:scale-[0.98]" 
-                        :disabled="processing || code.length < 6"
+                        size="lg"
+                        class="w-full"
+                        :loading="processing"
+                        :disabled="code.length < 6"
                     >
-                        <Spinner v-if="processing" class="mr-2" />
                         Verify Code
-                    </Button>
+                    </AppButton>
 
                     <div class="text-center text-sm">
                         <button
                             type="button"
-                            class="font-bold text-[var(--primary)] hover:text-[var(--primary)] transition-colors"
+                            class="font-bold text-primary transition-colors hover:underline"
                             @click="() => toggleRecoveryMode(clearErrors)"
                         >
                             {{ authConfigContent.toggleText }}
@@ -127,19 +128,19 @@ const code = ref<string>('');
                         <InputError :message="errors.recovery_code" />
                     </div>
 
-                    <Button 
+                    <AppButton 
                         type="submit" 
-                        class="w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all" 
-                        :disabled="processing"
+                        size="lg"
+                        class="w-full"
+                        :loading="processing"
                     >
-                        <Spinner v-if="processing" class="mr-2" />
                         Continue
-                    </Button>
+                    </AppButton>
 
                     <div class="text-center text-sm">
                         <button
                             type="button"
-                            class="font-bold text-[var(--primary)] hover:text-[var(--primary)] transition-colors"
+                            class="font-bold text-primary transition-colors hover:underline"
                             @click="() => toggleRecoveryMode(clearErrors)"
                         >
                             {{ authConfigContent.toggleText }}

@@ -155,7 +155,7 @@ class SeriesService
             $query->whereDoesntHave('clippers.collections', fn($q) => $q->where('user_id', $user->id));
         } elseif ($filter === 'completed') {
             $completedIds = $this->getCompletedSeriesIds($user);
-            $query->whereIn('series.id', empty($completedIds) ? [''] : $completedIds);
+            $query->whereIn('series.id', $completedIds);
         }
 
         $query->orderBy($column, $direction);

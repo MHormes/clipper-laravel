@@ -33,6 +33,7 @@ const appVersion = page.props.app_version;
                     
                     <div class="flex flex-col gap-3">
                         <span class="text-xs font-bold uppercase tracking-wider text-primary-content/50">Community</span>
+                        <Link :href="route('install')" class="hover:text-[var(--primary)] transition">Get the App</Link>
                         <a href="https://buymeacoffee.com/mhormes" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] transition">Buy me a Coffee</a>
                         <a href="https://github.com/mhormes" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] transition">GitHub / Support</a>
                     </div>

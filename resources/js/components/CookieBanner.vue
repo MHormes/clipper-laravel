@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue';
 import { useConsent } from '@/composables/useConsent';
 
 const { hasDecided, accept, decline } = useConsent();
@@ -35,20 +36,21 @@ const { hasDecided, accept, decline } = useConsent();
                 </div>
 
                 <div class="flex items-center gap-3 shrink-0">
-                    <button
+                    <AppButton
                         type="button"
-                        class="px-4 py-2 text-xs font-semibold rounded-lg border border-border-color text-black bg-white hover:bg-gray-100 transition"
+                        variant="outline"
+                        size="sm"
                         @click="decline"
                     >
                         Decline
-                    </button>
-                    <button
+                    </AppButton>
+                    <AppButton
                         type="button"
-                        class="px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-button-content hover:opacity-90 transition"
+                        size="sm"
                         @click="accept"
                     >
                         Accept
-                    </button>
+                    </AppButton>
                 </div>
             </div>
         </div>

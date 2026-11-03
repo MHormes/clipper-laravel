@@ -45,6 +45,15 @@ fi
 echo "🛑 Stop & verwijder containers..."
 docker compose -f "$COMPOSE_FILE" down
 
+# vendor/, node_modules/, public/build/ and bootstrap/ssr/ are anonymous volumes in the compose files.
+# podman-compose gives them stable names (<project>_<service>_<hash>) and re-attaches them on every up,
+# which hides the freshly built assets in the new image. Remove them so they are re-seeded from the image.
+# Only matches the app/queue build-artifact volumes; database and storage volumes are never touched.
+echo "🧹 Oude build-volumes opruimen..."
+docker volume ls -q | grep -E '_clipper_(app|queue)(_prod)?_[0-9a-f]{64}$' | while read -r VOLUME; do
+    docker volume rm "$VOLUME" > /dev/null && echo "   verwijderd: $VOLUME"
+done
+
 # 5. Volumes aanmaken
 echo "📦 Volumes controleren..."
 if [ "$PROFILE" = "local" ]; then

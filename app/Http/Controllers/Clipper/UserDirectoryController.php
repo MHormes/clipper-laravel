@@ -247,7 +247,7 @@ class UserDirectoryController extends Controller
 
         if (($filters['filter'] ?? 'all') === 'completed') {
             $completedIds = $this->seriesService->getCompletedSeriesIds($user);
-            $query->whereIn('series.id', empty($completedIds) ? [''] : $completedIds);
+            $query->whereIn('series.id', $completedIds);
         }
 
         return $query

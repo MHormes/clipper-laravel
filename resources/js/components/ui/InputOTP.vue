@@ -21,6 +21,7 @@ import { useVueOTPContext } from "vue-input-otp"
 
 export const InputOTPGroup = {
   name: 'InputOTPGroup',
+  props: { class: { type: null, required: false } },
   setup(props: any, { slots }: any) {
     const delegatedProps = reactiveOmit(props, "class")
     const forwarded = useForwardProps(delegatedProps)
@@ -38,6 +39,11 @@ export const InputOTPSeparator = {
 
 export const InputOTPSlot = {
   name: 'InputOTPSlot',
+  // Props must be declared, otherwise index lands in attrs and the slot never shows its digit
+  props: {
+    index: { type: Number, required: true },
+    class: { type: null, required: false },
+  },
   setup(props: any) {
     const delegatedProps = reactiveOmit(props, "class")
     const forwarded = useForwardProps(delegatedProps)
@@ -48,11 +54,11 @@ export const InputOTPSlot = {
       'data-slot': 'input-otp-slot',
       'data-active': slot.value?.isActive,
       ...forwarded,
-      class: cn('data-[active=true]:border-primary-content data-[active=true]:ring-primary-content/50 data-[active=true]:aria-invalid:ring-error/30 aria-invalid:border-error data-[active=true]:aria-invalid:border-error bg-input-background border-border-color relative flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[3px]', props.class)
+      class: cn('data-[active=true]:border-primary-content data-[active=true]:ring-primary-content/50 data-[active=true]:aria-invalid:ring-error/30 aria-invalid:border-error data-[active=true]:aria-invalid:border-error bg-input-background text-primary-content border-border-color relative flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[3px]', props.class)
     }, [
       slot.value?.char,
       slot.value?.hasFakeCaret && h('div', { class: 'pointer-events-none absolute inset-0 flex items-center justify-center' }, [
-        h('div', { class: 'animate-caret-blink bg-foreground h-4 w-px duration-1000' })
+        h('div', { class: 'animate-caret-blink bg-primary-content h-4 w-px duration-1000' })
       ])
     ])
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AlertError from '@/components/AlertError.vue';
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import {
     Dialog,
     DialogContent,
@@ -15,7 +15,6 @@ import {
     InputOTPSlot,
 } from '@/components/ui';
 import { Spinner } from '@/components/ui';
-import { useAppearance } from '@/composables/useAppearance';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import { confirm } from '@/routes/two-factor';
 import { Form } from '@inertiajs/vue3';
@@ -27,8 +26,6 @@ interface Props {
     requiresConfirmation: boolean;
     twoFactorEnabled: boolean;
 }
-
-const { resolvedAppearance } = useAppearance();
 
 const props = defineProps<Props>();
 const isOpen = defineModel<boolean>('isOpen');
@@ -168,28 +165,23 @@ watch(
                                 >
                                     <Spinner class="size-6" />
                                 </div>
+                                <!-- Never invert the QR in dark mode: most authenticator scanners can't read light-on-dark codes -->
                                 <div
                                     v-else
-                                    class="relative z-10 overflow-hidden border p-5"
+                                    class="relative z-10 size-full overflow-hidden bg-qr-background p-5"
                                 >
                                     <div
                                         v-html="qrCodeSvg"
                                         class="flex aspect-square size-full items-center justify-center"
-                                        :style="{
-                                            filter:
-                                                resolvedAppearance === 'dark'
-                                                    ? 'invert(1) brightness(1.5)'
-                                                    : undefined,
-                                        }"
                                     />
                                 </div>
                             </div>
                         </div>
 
                         <div class="flex w-full items-center space-x-5">
-                            <Button class="w-full" @click="handleModalNextStep">
+                            <AppButton class="w-full" @click="handleModalNextStep">
                                 {{ modalConfig.buttonText }}
-                            </Button>
+                            </AppButton>
                         </div>
 
                         <div
@@ -224,7 +216,7 @@ watch(
                                     />
                                     <button
                                         @click="copy(manualSetupKey || '')"
-                                        class="relative block h-auto border-l border-border-color px-3 hover:bg-muted"
+                                        class="relative block h-auto border-l border-border-color px-3 transition-colors hover:bg-muted-background hover:text-primary"
                                     >
                                         <Check
                                             v-if="copied"
@@ -277,22 +269,23 @@ watch(
                             </div>
 
                             <div class="flex w-full items-center space-x-5">
-                                <Button
+                                <AppButton
                                     type="button"
                                     variant="outline"
                                     class="w-auto flex-1"
                                     @click="showVerificationStep = false"
-                                    :disabled="processing"
+                                    :loading="processing"
                                 >
                                     Back
-                                </Button>
-                                <Button
+                                </AppButton>
+                                <AppButton
                                     type="submit"
                                     class="w-auto flex-1"
-                                    :disabled="processing || code.length < 6"
+                                    :loading="processing"
+                                    :disabled="code.length < 6"
                                 >
                                     Confirm
-                                </Button>
+                                </AppButton>
                             </div>
                         </div>
                     </Form>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AlertError from '@/components/AlertError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import {
     Card,
     CardContent,
@@ -53,14 +53,14 @@ onMounted(async () => {
             <div
                 class="flex flex-col gap-3 select-none sm:flex-row sm:items-center sm:justify-between"
             >
-                <Button @click="toggleRecoveryCodesVisibility" class="w-fit">
+                <AppButton @click="toggleRecoveryCodesVisibility" class="w-fit">
                     <component
                         :is="isRecoveryCodesVisible ? EyeOff : Eye"
                         class="size-4"
                     />
                     {{ isRecoveryCodesVisible ? 'Hide' : 'View' }} Recovery
                     Codes
-                </Button>
+                </AppButton>
 
                 <Form
                     v-if="isRecoveryCodesVisible && recoveryCodesList.length"
@@ -70,13 +70,13 @@ onMounted(async () => {
                     @success="fetchRecoveryCodes"
                     #default="{ processing }"
                 >
-                    <Button
+                    <AppButton
                         variant="secondary"
                         type="submit"
-                        :disabled="processing"
+                        :loading="processing"
                     >
                         <RefreshCw /> Regenerate Codes
-                    </Button>
+                    </AppButton>
                 </Form>
             </div>
             <div

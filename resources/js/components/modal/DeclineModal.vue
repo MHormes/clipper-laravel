@@ -8,8 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui"
-import { Button } from "@/components/ui"
-import { Loader2 } from "@lucide/vue"
+import AppButton from '@/components/AppButton.vue';
 
 interface Props {
     title: string
@@ -79,25 +78,22 @@ const handleOpenChange = (value: boolean) => {
             </div>
 
             <DialogFooter class="flex flex-col-reverse sm:flex-row gap-2">
-                <Button
+                <AppButton
                     type="button"
                     variant="outline"
                     :disabled="loading"
                     @click="handleCancel"
                 >
                     {{ cancelText }}
-                </Button>
-                <Button
+                </AppButton>
+                <AppButton
                     type="button"
-                    :disabled="loading"
+                    variant="danger"
+                    :loading="loading"
                     @click="handleConfirm"
                 >
-                    <Loader2
-                        v-if="loading"
-                        class="mr-2 h-4 w-4 animate-spin"
-                    />
                     {{ confirmText }}
-                </Button>
+                </AppButton>
             </DialogFooter>
         </DialogContent>
     </Dialog>

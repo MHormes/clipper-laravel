@@ -2,6 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
 import Skeleton from '@/components/ui/Skeleton.vue';
+import AppButton from '@/components/AppButton.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 import { Library, Search, X } from '@lucide/vue';
@@ -59,15 +60,14 @@ const markClipperImageLoaded = (clipper: Clipper) => {
                         <input v-model="search" type="text" placeholder="Search by series name..."
                             class="w-full pl-10 pr-10 py-2.5 bg-primary-background border border-border-color rounded-xl focus:ring-2 focus:ring-primary outline-none text-sm shadow-sm" />
                         <button v-if="search" @click="search = ''"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content hover:text-primary-content p-1">
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1 hover:text-primary transition-colors">
                             <X class="w-4 h-4" />
                         </button>
                     </div>
 
-                    <Link :href="route('collection.index')"
-                        class="shrink-0 px-5 py-2.5 bg-primary text-button-content rounded-xl font-bold text-sm hover:bg-primary hover:text-button-content! transition-all shadow-md active:scale-95 flex items-center gap-2">
+                    <AppButton :href="route('collection.index')" class="shrink-0">
                         BACK TO SERIES VIEW
-                    </Link>
+                    </AppButton>
                 </div>
             </div>
 
@@ -107,14 +107,12 @@ const markClipperImageLoaded = (clipper: Clipper) => {
                     <p v-if="!isFiltered" class="text-muted-content mb-10 text-center max-w-sm px-6">
                         Start your collection by adding clippers from the Series Catalog.
                     </p>
-                    <button v-if="isFiltered" @click="search = ''"
-                        class="px-8 py-4 bg-muted-background rounded-2xl font-black active:scale-95 transition-all">
+                    <AppButton v-if="isFiltered" variant="secondary" size="lg" class="rounded-2xl font-black" @click="search = ''">
                         RESET SEARCH
-                    </button>
-                    <Link v-else :href="route('series.index')"
-                        class="flex items-center gap-2 px-8 py-4 bg-primary text-button-content hover:bg-primary hover:text-button-content! rounded-2xl font-black transition-all shadow-lg shadow-primary/20 active:scale-95">
+                    </AppButton>
+                    <AppButton v-else :href="route('series.index')" size="lg" class="rounded-2xl font-black">
                         GO TO CATALOG
-                    </Link>
+                    </AppButton>
                 </div>
 
                 <Pagination :links="clippers.links" />

@@ -46,6 +46,14 @@
     --color-hero-card-bg: var(--hero-card-bg);
     --color-media-bg: var(--media-bg);
     --color-link-decoration: var(--link-decoration);
+    --color-qr-background: var(--qr-background);
+
+    /*blinking caret for the OTP input*/
+    --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+    @keyframes caret-blink {
+        0%, 70%, 100% { opacity: 1; }
+        20%, 50% { opacity: 0; }
+    }
 
 }
 
@@ -117,6 +125,8 @@
     --hero-card-bg: var(--primary-content);
     --media-bg: var(--muted-background);
     --link-decoration: rgb(212, 212, 212);
+    /*QR codes need dark-on-light to scan; stays white in both themes*/
+    --qr-background: rgb(255, 255, 255);
 }
 
 .dark {
@@ -157,6 +167,8 @@
     --hero-card-bg: #1D0002;
     --media-bg: var(--primary-background);
     --link-decoration: rgb(115, 115, 115);
+    /*QR codes need dark-on-light to scan; stays white in both themes*/
+    --qr-background: rgb(255, 255, 255);
 }
 
 @layer base {
@@ -166,5 +178,11 @@
 
     body {
         @apply bg-primary-background text-primary-content;
+    }
+
+    /* App-wide standard: buttons show the "clickable" cursor */
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        cursor: pointer;
     }
 }

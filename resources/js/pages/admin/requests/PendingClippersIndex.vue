@@ -151,11 +151,11 @@ const formatDate = (date: string) => {
                                         <p class="text-[10px] font-bold text-muted-content truncate uppercase tracking-tight">{{ clipper.requester.name }}</p>
                                         <div class="flex gap-2">
                                             <button @click="acceptClipper(clipper.id)"
-                                                class="p-1.5 bg-primary text-button-content rounded-lg hover:bg-primary hover:text-button-content! transition-colors shadow-lg">
+                                                class="p-1.5 bg-primary text-button-content rounded-lg hover:brightness-90 transition-all shadow-lg">
                                                 <Check class="w-3.5 h-3.5" />
                                             </button>
                                             <button @click="declineClipper(clipper.id)"
-                                                class="p-1.5 bg-error text-button-content rounded-lg hover:bg-error hover:text-button-content! transition-colors shadow-lg">
+                                                class="p-1.5 bg-error text-button-content rounded-lg hover:brightness-90 transition-all shadow-lg">
                                                 <X class="w-3.5 h-3.5" />
                                             </button>
                                         </div>
@@ -184,11 +184,11 @@ const formatDate = (date: string) => {
                                 <div
                                     class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 to-transparent flex justify-center gap-2 sm:translate-y-full sm:group-hover/item:translate-y-0 transition-transform">
                                     <button @click="acceptClipper(clipper.id)"
-                                        class="p-2 bg-primary text-button-content rounded-lg hover:bg-primary hover:text-button-content! transition-colors shadow-lg">
+                                        class="p-2 bg-primary text-button-content rounded-lg hover:brightness-90 transition-all shadow-lg">
                                         <Check class="w-4 h-4" />
                                     </button>
                                     <button @click="declineClipper(clipper.id)"
-                                        class="p-2 bg-error text-button-content rounded-lg hover:bg-error hover:text-button-content! transition-colors shadow-lg">
+                                        class="p-2 bg-error text-button-content rounded-lg hover:brightness-90 transition-all shadow-lg">
                                         <X class="w-4 h-4" />
                                     </button>
                                 </div>

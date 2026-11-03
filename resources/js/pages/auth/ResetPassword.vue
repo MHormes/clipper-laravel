@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Input } from '@/components/ui';
 import { Label } from '@/components/ui';
-import { Spinner } from '@/components/ui';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { update } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
@@ -78,15 +77,15 @@ const inputEmail = ref(props.email);
                     <InputError :message="errors.password_confirmation" />
                 </div>
 
-                <Button
+                <AppButton
                     type="submit"
-                    class="mt-4 w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all active:scale-[0.98]"
-                    :disabled="processing"
+                    size="lg"
+                    class="mt-4 w-full"
+                    :loading="processing"
                     data-test="reset-password-button"
                 >
-                    <Spinner v-if="processing" class="mr-2 h-4 w-4" />
                     Reset Password
-                </Button>
+                </AppButton>
             </div>
         </Form>
     </AuthLayout>

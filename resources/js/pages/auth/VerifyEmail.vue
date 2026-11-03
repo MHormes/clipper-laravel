@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui';
-import { Spinner } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { logout } from '@/routes';
 import { send } from '@/routes/verification';
@@ -100,14 +99,15 @@ onBeforeUnmount(() => {
             class="flex flex-col gap-6"
             v-slot="{ processing }"
         >
-            <Button 
+            <AppButton 
                 type="submit"
-                :disabled="processing || remainingSeconds > 0"
-                class="w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all active:scale-[0.98]"
+                size="lg"
+                class="w-full"
+                :loading="processing"
+                :disabled="remainingSeconds > 0"
             >
-                <Spinner v-if="processing" class="mr-2" />
                 {{ remainingSeconds > 0 ? `Resend available in ${countdownLabel}` : 'Resend Verification Email' }}
-            </Button>
+            </AppButton>
 
             <div class="text-center">
                 <TextLink

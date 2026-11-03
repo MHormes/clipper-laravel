@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import { X, Check, RotateCcw, RotateCw } from '@lucide/vue';
+import AppButton from '@/components/AppButton.vue';
 
 const props = defineProps<{
     open: boolean;
@@ -85,7 +86,7 @@ const reset = () => {
                     <h3 class="text-xl font-black uppercase tracking-tight">{{ title }}</h3>
                     <p class="text-[10px] text-muted-content font-bold uppercase tracking-widest mt-0.5">Adjust the crop to fit the required aspect ratio</p>
                 </div>
-                <button @click="handleCancel" class="p-2 hover:bg-[var(--hover-overlay)] rounded-full transition-colors">
+                <button @click="handleCancel" class="p-2 rounded-full transition-colors hover:bg-hover-overlay hover:text-primary">
                     <X class="w-6 h-6" />
                 </button>
             </div>
@@ -111,7 +112,7 @@ const reset = () => {
                     <div class="flex items-center gap-1">
                         <button
                             @click="reset"
-                            class="flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted-content hover:text-primary-content transition-colors"
+                            class="flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted-content hover:text-primary transition-colors"
                             title="Reset"
                         >
                             <RotateCcw class="w-3.5 h-3.5" />
@@ -122,7 +123,7 @@ const reset = () => {
 
                         <button
                             @click="rotateLeft"
-                            class="p-2 text-muted-content hover:text-primary-content transition-colors"
+                            class="p-2 text-muted-content hover:text-primary transition-colors"
                             title="Rotate Left"
                         >
                             <RotateCcw class="w-4 h-4" />
@@ -130,7 +131,7 @@ const reset = () => {
 
                         <button
                             @click="rotateRight"
-                            class="p-2 text-muted-content hover:text-primary-content transition-colors"
+                            class="p-2 text-muted-content hover:text-primary transition-colors"
                             title="Rotate Right"
                         >
                             <RotateCw class="w-4 h-4" />
@@ -155,19 +156,20 @@ const reset = () => {
                 </div>
 
                 <div class="mt-4 md:mt-0 flex gap-3">
-                    <button
+                    <AppButton
                         @click="handleCancel"
-                        class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest border border-border-color hover:bg-[var(--hover-overlay)] transition-all text-muted-content"
+                        variant="outline"
+                        class="text-xs font-black uppercase tracking-widest"
                     >
                         Deny / Cancel
-                    </button>
-                    <button
+                    </AppButton>
+                    <AppButton
                         @click="handleAccept"
-                        class="px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest bg-primary text-button-content hover:bg-primary hover:text-button-content!  shadow-lg shadow-primary/20 transition-all flex items-center gap-2"
+                        class="px-8 text-xs font-black uppercase tracking-widest"
                     >
-                        <Check class="w-4 h-4" />
+                        <Check />
                         Accept Crop
-                    </button>
+                    </AppButton>
                 </div>
             </div>
         </div>

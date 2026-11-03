@@ -54,6 +54,11 @@ class CsvDataSeeder extends Seeder
             DB::statement('PRAGMA foreign_keys = ON');
         }
 
+        // Explicit ids were imported, so advance auto-increment sequences past them.
+        if ($driver === 'pgsql') {
+            $this->syncSequence('user_follows');
+        }
+
         $this->command->info('Full data import completed successfully.');
     }
 
@@ -93,6 +98,13 @@ class CsvDataSeeder extends Seeder
                 $columns         
             );
         });
+    }
+
+    private function syncSequence(string $table): void
+    {
+        DB::statement(
+            "SELECT setval(pg_get_serial_sequence('{$table}', 'id'), COALESCE(MAX(id), 1), MAX(id) IS NOT NULL) FROM {$table}"
+        );
     }
 
     private function dataDirectory(): string

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Separator } from '@/components/ui';
 import { useActiveUrl } from '@/composables/useActiveUrl';
 import { toUrl } from '@/lib/utils';
@@ -9,7 +9,6 @@ import { edit as editProfile } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -49,26 +48,20 @@ const { urlIsActive } = useActiveUrl();
         <div class="flex flex-col lg:flex-row lg:space-x-12">
             <aside class="w-full max-w-xl lg:w-48">
                 <nav class="flex flex-col space-y-1 space-x-0" aria-label="Settings">
-                    <Button
+                    <AppButton
                         v-for="item in sidebarNavItems"
                         :key="toUrl(item.href)"
+                        :href="item.href"
+                        :aria-current="urlIsActive(item.href) ? 'page' : undefined"
                         variant="ghost"
                         :class="[
-                            'w-full justify-start border-l-2 border-transparent text-muted-content',
-                            urlIsActive(item.href)
-                                ? 'border-primary bg-muted-background font-semibold text-primary shadow-sm'
-                                : 'hover:bg-muted-background hover:text-primary-content',
+                            'w-full justify-start rounded-md border-l-2 border-transparent px-4',
+                            urlIsActive(item.href) && 'border-primary bg-muted-background text-primary shadow-sm',
                         ]"
-                        as-child
                     >
-                        <Link
-                            :href="item.href"
-                            :aria-current="urlIsActive(item.href) ? 'page' : undefined"
-                        >
-                            <component :is="item.icon" class="h-4 w-4" />
-                            {{ item.title }}
-                        </Link>
-                    </Button>
+                        <component :is="item.icon" />
+                        {{ item.title }}
+                    </AppButton>
                 </nav>
             </aside>
 

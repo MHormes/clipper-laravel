@@ -7,7 +7,7 @@ import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 import DeleteUser from '@/components/DeleteUser.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Input } from '@/components/ui';
 import { Label } from '@/components/ui';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -118,14 +118,12 @@ const user = page.props.auth.user;
                             </div>
 
                             <div class="flex items-center gap-4 pt-2">
-                                <Button
-                                    :disabled="processing"
-                                    class="rounded-xl bg-[var(--primary)] px-8 font-bold text-secondary-content hover:bg-[var(--primary)] transition-all active:scale-95 shadow-lg shadow-primary/10"
+                                <AppButton
+                                    :loading="processing"
                                     data-test="update-profile-button"
                                 >
-                                    <Spinner v-if="processing" class="mr-2 h-4 w-4" />
                                     Save Profile
-                                </Button>
+                                </AppButton>
 
                                 <Transition
                                     enter-active-class="transition ease-in-out"

@@ -20,10 +20,10 @@ const tabs = [
             :key="value"
             @click="updateAppearance(value)"
             :class="[
-                'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
+                'flex items-center rounded-md border border-transparent px-3.5 py-1.5 transition-colors',
                 appearance === value
                     ? 'bg-primary-background shadow-xs'
-                    : 'text-muted-content hover:bg-muted-background/60 hover:text-primary-content',
+                    : 'text-muted-content hover:border-primary/50 hover:text-primary',
             ]"
         >
             <component :is="Icon" class="-ml-1 h-4 w-4" />
