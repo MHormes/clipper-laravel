@@ -241,6 +241,37 @@ class UserDirectoryTest extends TestCase
             );
     }
 
+    public function test_user_profile_completed_filter_returns_empty_when_no_series_completed(): void
+    {
+        $viewer = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
+        $target = User::factory()->create();
+
+        $incompleteSeries = Series::factory()->create([
+            'name' => 'Incomplete Official',
+            'custom' => false,
+            'requested_by' => $admin->id,
+            'accepted_by' => $admin->id,
+        ]);
+
+        $clipper = Clipper::factory()->create([
+            'series_id' => $incompleteSeries->id,
+            'requested_by' => $admin->id,
+            'accepted_by' => $admin->id,
+        ]);
+
+        $target->myCollection()->create(['clipper_id' => $clipper->id]);
+
+        $this->actingAs($viewer)
+            ->get(route('users.show', ['user' => $target->id, 'filter' => 'completed']))
+            ->assertOk()
+            ->assertInertia(fn(Assert $page) => $page
+                ->component('users/Show')
+                ->where('filters.filter', 'completed')
+                ->missing('series.data.0')
+            );
+    }
+
     public function test_user_can_follow_and_unfollow_another_user(): void
     {
         $viewer = User::factory()->create();
