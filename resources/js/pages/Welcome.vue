@@ -5,11 +5,15 @@ import InstallAppButton from '@/components/InstallAppButton.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import CursorCard from '@/components/CursorCard.vue';
 import GlobalFooter from '@/components/GlobalFooter.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { useInstallPrompt } from '@/composables/useInstallPrompt';
+import { Head } from '@inertiajs/vue3';
+import { Smartphone } from '@lucide/vue';
 
 defineProps<{
     canRegister: boolean;
 }>();
+
+const { canInstall } = useInstallPrompt();
 
 const stats = [
     { label: 'Total Series', value: '100+' },
@@ -35,8 +39,11 @@ const stats = [
                     >
                 </div>
                 <div class="flex items-center gap-4">
-                    <InstallAppButton />
-                    <Link :href="login()" class="text-sm font-medium transition hover:text-primary"> Log in </Link>
+                    <!-- Hidden on small screens where the nav is too cramped -->
+                    <div class="hidden sm:block">
+                        <InstallAppButton />
+                    </div>
+                    <AppButton :href="login()" variant="outline" pill class="px-5">Log in</AppButton>
                     <AppButton
                         v-if="canRegister"
                         :href="register()"
@@ -69,6 +76,11 @@ const stats = [
                             class="h-auto py-4 shadow-2xl hover:scale-105"
                         >
                             Start Your Collection
+                        </AppButton>
+                        <!-- Mobile replacement for the install button hidden in the nav -->
+                        <AppButton v-if="canInstall" href="/install" variant="secondary" size="lg" pill class="h-auto py-4 hover:scale-105 sm:hidden">
+                            <Smartphone />
+                            Get the App
                         </AppButton>
                     </div>
                 </div>
