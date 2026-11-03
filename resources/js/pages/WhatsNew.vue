@@ -12,6 +12,20 @@ interface Version {
 
 const versions = ref<Version[]>([
     {
+        number: '1.3',
+        date: 'November 2026',
+        title: 'Install the App & Bug Fixes',
+        changes: [
+            'New "Get the App" guide at /install with step-by-step instructions for iPhone & iPad, Android (Chrome, Samsung Internet, Firefox, Edge), computers and in-app browsers — it automatically highlights the steps for your device.',
+            'Clipper-MS can now be installed from any browser on iPhone and iPad, not just Chrome on Android. Installed, it opens full screen from your Home Screen like a regular app.',
+            'Logged-in mobile users may see a small suggestion to install the app. It is asked at most twice: dismiss it and it stays away for two weeks, dismiss it again and it is gone for good.',
+            'The old download button has been replaced by a cleaner "Get the app" button in the sidebar and on the home page, which installs in one tap where your browser allows it.',
+            'Fixed an error that occurred when filtering on "Completed" series while you had no completed series yet — it now simply shows an empty list.',
+            'The "Reset Search" button shown when nothing matches now clears all active filters instead of only the search text — on the Series Catalog and on collector profiles (including the "Completed" filter). Reset buttons also got a clear hover state.',
+        ],
+        isOpen: true
+    },
+    {
         number: '1.2',
         date: 'August 2026',
         title: 'Profile Sharing & Picker Improvements',
@@ -22,7 +36,7 @@ const versions = ref<Version[]>([
             'Fixed a bug where the collected list could fail to load when copying clipper details.',
             'Renamed the "Your Series" and "Your Clippers" pages to /my-series and /clippers — update any bookmarks to the old /collection URLs.',
         ],
-        isOpen: true
+        isOpen: false
     },
     {
         number: '1.1',
