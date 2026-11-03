@@ -33,7 +33,12 @@ Use Tailwind classes: `text-primary`, `bg-primary-background`, `border-border-co
 - **Wrong**: `class="bg-white dark:bg-gray-900"` or `class="text-black dark:text-white"`
 - **Right**: `class="bg-component-background"` or `class="text-primary-content"`
 
-If a new color needs to differ between light/dark modes, add a new CSS variable to `resources/css/app.css` under both `:root` (light) and `.dark` (dark) sections, and register it in `@theme inline` with the `--color-` prefix. Available semantic variables: `--input-background`, `--alert-*-bg/border`, `--badge-success-bg`, `--primary-icon-bg`, `--hover-overlay`, `--hero-card-bg`, `--media-bg`, `--link-decoration`.
+If a new color needs to differ between light/dark modes, add a new CSS variable to `resources/css/app.css` under both `:root` (light) and `.dark` (dark) sections, and register it in `@theme inline` with the `--color-` prefix. Available semantic variables: `--input-background`, `--alert-*-bg/border`, `--badge-success-bg`, `--primary-icon-bg`, `--hover-overlay`, `--hero-card-bg`, `--media-bg`, `--link-decoration`, `--qr-background` (always white so QR codes stay scannable).
+
+### Buttons: Cursor + Hover
+- **Use `AppButton`** (`@/components/AppButton.vue`) for buttons. Variants: `primary` (default), `secondary`, `outline`, `outline-primary` (orange-outlined links such as "View Series"), `ghost`, `ghost-danger` (icon delete actions in tables/lists), `danger`, `danger-soft`. Sizes: `sm`, `md` (default), `lg`, `icon`. Props: `pill`, `loading` (spinner + disabled), `href` (renders an Inertia `Link`). Every variant has a hover change built in.
+- **Cursor** is set globally in `resources/css/app.css`. Do not add `cursor-pointer` to individual buttons.
+- **Hover**: a raw `<button>` (only for non-button UI such as tabs, chips, dropdown triggers) still needs a visible `hover:` color change.
 
 ## 💻 General Coding Standards
 - **Commenting**:

@@ -4,7 +4,7 @@ import { cn as utilCn } from "@/lib/utils"
 import { SIDEBAR_WIDTH_MOBILE, useSidebar, provideSidebarContext, SIDEBAR_COOKIE_MAX_AGE, SIDEBAR_COOKIE_NAME, SIDEBAR_KEYBOARD_SHORTCUT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_ICON } from "./sidebar-utils"
 import { defaultDocument, useEventListener, useMediaQuery, useVModel } from "@vueuse/core"
 import { TooltipProvider } from "reka-ui"
-import { Button } from './index'
+import AppButton from '@/components/AppButton.vue'
 import { PanelLeftClose, PanelLeftOpen } from '@lucide/vue'
 
 export const SidebarInset = (props: { class?: VueHTMLAttributes }, { slots }: any) => h('main', {
@@ -13,7 +13,7 @@ export const SidebarInset = (props: { class?: VueHTMLAttributes }, { slots }: an
 
 export const SidebarTrigger = (props: { class?: VueHTMLAttributes }) => {
   const { isMobile, state, toggleSidebar } = useSidebar()
-  return h(Button, {
+  return h(AppButton, {
     variant: 'ghost', size: 'icon', class: utilCn('h-7 w-7', props.class),
     onClick: toggleSidebar
   }, () => [

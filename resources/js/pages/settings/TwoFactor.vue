@@ -3,7 +3,7 @@ import HeadingSmall from '@/components/HeadingSmall.vue';
 import TwoFactorRecoveryCodes from '@/components/TwoFactorRecoveryCodes.vue';
 import TwoFactorSetupModal from '@/components/TwoFactorSetupModal.vue';
 import { Badge } from '@/components/ui';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
@@ -82,14 +82,13 @@ onUnmounted(() => {
                         </div>
 
                         <div class="pt-2">
-                            <Button
+                            <AppButton
                                 v-if="hasSetupData"
                                 @click="showSetupModal = true"
-                                class="rounded-xl bg-[var(--primary)] px-6 font-bold text-secondary-content hover:bg-[var(--primary)] transition-all hover:scale-[1.02] active:scale-95"
                             >
-                                <ShieldCheck class="mr-2 h-4 w-4" />
+                                <ShieldCheck />
                                 Continue Setup
-                            </Button>
+                            </AppButton>
 
                             <Form
                                 v-else
@@ -97,14 +96,13 @@ onUnmounted(() => {
                                 @success="showSetupModal = true"
                                 #default="{ processing }"
                             >
-                                <Button 
+                                <AppButton 
                                     type="submit" 
-                                    :disabled="processing"
-                                    class="rounded-xl bg-[var(--primary)] px-6 font-bold text-secondary-content hover:bg-[var(--primary)] transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/10"
+                                    :loading="processing"
                                 >
-                                    <ShieldCheck class="mr-2 h-4 w-4" />
+                                    <ShieldCheck />
                                     Enable Security Layer
-                                </Button>
+                                </AppButton>
                             </Form>
                         </div>
                     </div>
@@ -129,15 +127,15 @@ onUnmounted(() => {
 
                         <div class="pt-4 border-t border-border-color w-full">
                             <Form v-bind="disable.form()" #default="{ processing }">
-                                <Button
-                                    variant="ghost"
+                                <AppButton
+                                    variant="danger-soft"
+                                    size="sm"
                                     type="submit"
-                                    :disabled="processing"
-                                    class="text-xs font-bold text-error hover:text-error hover:bg-error hover:text-button-content!"
+                                    :loading="processing"
                                 >
-                                    <ShieldBan class="mr-2 h-3 w-3" />
+                                    <ShieldBan />
                                     Disable Protection
-                                </Button>
+                                </AppButton>
                             </Form>
                         </div>
                     </div>

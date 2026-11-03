@@ -94,7 +94,7 @@ const toggleVersion = (index: number) => {
                     class="border border-border-color rounded-2xl overflow-hidden transition-all duration-200"
                     :class="{ 'ring-1 ring-primary/20': version.isOpen }">
                     <button @click="toggleVersion(index)"
-                        class="w-full flex justify-between items-center p-6 bg-muted-background transition-colors text-left">
+                        class="w-full flex justify-between items-center p-6 bg-muted-background transition-colors text-left hover:text-primary">
                         <div class="flex flex-col">
                             <span class="text-xs font-bold uppercase tracking-widest text-primary mb-1">Version {{
                                 version.number }}</span>

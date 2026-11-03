@@ -158,7 +158,7 @@ const mainNavItems = computed<NavItem[]>(() => {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem as-child>
-                        <Link :href="edit()" class="flex w-full items-center gap-2 cursor-pointer">
+                        <Link :href="edit()" class="flex w-full items-center gap-2">
                             <Settings class="size-4" />
                             Settings
                         </Link>
@@ -166,7 +166,7 @@ const mainNavItems = computed<NavItem[]>(() => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem as-child>
                         <Link :href="logout()" method="post" as="button" @click="handleLogout"
-                            class="flex w-full items-center gap-2 cursor-pointer">
+                            class="flex w-full items-center gap-2">
                             <LogOut class="size-4" />
                             Log out
                         </Link>

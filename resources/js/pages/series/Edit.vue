@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
+import AppButton from '@/components/AppButton.vue';
 import SeriesForm from '@/components/series/SeriesForm.vue';
 import { route } from 'ziggy-js';
 
@@ -31,8 +32,10 @@ const submit = (form: any) => {
                     <h1 class="text-3xl font-black uppercase tracking-tighter">Edit Series</h1>
                     <p class="text-[10px] text-muted-content font-mono">{{ series.id }}</p>
                 </div>
-                <Link :href="route('series.show', series.id)" class="text-sm font-bold text-primary hover:underline">
-                    View Live Page</Link>
+                <AppButton :href="route('series.show', series.id)" variant="outline-primary" size="sm"
+                    class="rounded-md font-black uppercase">
+                    View Live Page
+                </AppButton>
             </div>
 
             <SeriesForm mode="edit" :initial-data="series" submit-label="Save Changes" @submit="submit" />

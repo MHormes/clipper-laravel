@@ -2,7 +2,6 @@ export { default as Alert, AlertTitle, AlertDescription, alertVariants, type Ale
 export { default as Avatar, AvatarFallback, AvatarImage } from "./Avatar.vue"
 export { default as Badge, badgeVariants, type BadgeVariants } from "./Badge.vue"
 export { default as Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb.vue"
-export { default as Button, buttonVariants, type ButtonVariants } from "./Button.vue"
 export { default as Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction } from "./Card.vue"
 export { default as Checkbox } from "./Checkbox.vue"
 export { default as Dialog, DialogTrigger, DialogHeader, DialogTitle, DialogDescription, DialogContent, DialogFooter, DialogClose, DialogOverlay } from "./Dialog.vue"

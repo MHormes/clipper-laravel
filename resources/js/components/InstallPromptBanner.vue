@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { useConsent } from '@/composables/useConsent';
 import { useInstallPrompt } from '@/composables/useInstallPrompt';
-import { Link, usePage } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import { X } from '@lucide/vue';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
@@ -92,26 +93,30 @@ onBeforeUnmount(() => {
                     <p class="text-xs leading-snug text-muted-content">Full screen and one tap away on your Home Screen.</p>
                 </div>
 
-                <button
+                <AppButton
                     v-if="canPromptNatively"
                     type="button"
-                    class="shrink-0 rounded-full bg-primary px-4 py-2 text-xs font-bold text-button-content transition hover:opacity-90"
+                    size="sm"
+                    pill
+                    class="shrink-0"
                     @click="install"
                 >
                     Install
-                </button>
-                <Link
+                </AppButton>
+                <AppButton
                     v-else
                     href="/install"
-                    class="shrink-0 rounded-full bg-primary px-4 py-2 text-xs font-bold text-button-content transition hover:opacity-90"
+                    size="sm"
+                    pill
+                    class="shrink-0"
                     @click="dismiss"
                 >
                     Show me
-                </Link>
+                </AppButton>
 
                 <button
                     type="button"
-                    class="shrink-0 rounded-full p-1.5 text-muted-content transition hover:bg-muted-background hover:text-primary-content"
+                    class="shrink-0 rounded-full p-1.5 text-muted-content transition hover:bg-muted-background hover:text-primary"
                     aria-label="Dismiss"
                     @click="dismiss"
                 >

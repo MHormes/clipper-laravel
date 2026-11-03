@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NotificationsController from '@/actions/App/Http/Controllers/Settings/NotificationsController';
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { edit } from '@/routes/notifications';
@@ -90,10 +90,9 @@ const breadcrumbItems: BreadcrumbItem[] = [
                     </div>
 
                     <div class="flex items-center gap-4 pt-2">
-                        <Button :disabled="processing"
-                            class="rounded-xl bg-[var(--primary)] px-8 font-bold text-secondary-content hover:bg-[var(--primary)] transition-all active:scale-95 shadow-lg shadow-primary/10">
+                        <AppButton :loading="processing">
                             Save Preferences
-                        </Button>
+                        </AppButton>
 
                         <Transition enter-active-class="transition ease-in-out"
                             enter-from-class="opacity-0 translate-x-1" leave-active-class="transition ease-in-out"

@@ -3,6 +3,7 @@ import { ref, watch, onMounted, computed } from 'vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { Plus, X, AlertCircle, ImageIcon, Loader2, RefreshCw } from '@lucide/vue';
 import ImageCropper from '@/components/ImageCropper.vue';
+import AppButton from '@/components/AppButton.vue';
 import { ensureJpg } from '@/util/imageSupport';
 
 const props = defineProps<{
@@ -399,15 +400,17 @@ const anyCheckboxVisible = computed(() =>
                 <div v-for="(clipper, index) in form.clippers" :key="index"
                     class="relative group/slot flex flex-col items-center">
 
-                    <button
+                    <AppButton
                         v-if="canReuseSeriesImage"
                         type="button"
+                        variant="outline"
+                        size="sm"
+                        class="mb-1.5 h-auto w-full flex-col gap-1 rounded-lg px-1 py-1.5 text-[9px] font-black uppercase tracking-widest whitespace-normal lg:flex-row lg:text-[11px] [&_svg]:size-2.5 lg:[&_svg]:size-3"
                         @click="reuseSeriesImage(index)"
-                        class="mb-1.5 w-full flex flex-col items-center justify-center gap-1 text-[9px] font-black uppercase tracking-widest text-primary transition-all rounded-lg border border-primary/30 bg-primary/10 py-1.5 active:bg-primary/20 lg:flex-row lg:text-[11px] lg:border-transparent lg:bg-transparent lg:py-0 lg:rounded-none lg:opacity-70 lg:hover:opacity-100"
                     >
-                        <RefreshCw class="w-2.5 h-2.5" />
+                        <RefreshCw />
                         Reuse image
-                    </button>
+                    </AppButton>
 
                     <div class="relative w-full">
                         <button
@@ -457,7 +460,7 @@ const anyCheckboxVisible = computed(() =>
                 </div>
 
                 <button v-if="form.custom" type="button" @click="addSlot"
-                    class="w-full aspect-[1/4] border-2 border-dashed border-border-color rounded-xl flex flex-col items-center justify-center hover:bg-primary hover:text-button-content! /5 hover:border-primary/50 transition-all group/add bg-muted-background/10">
+                    class="w-full aspect-[1/4] border-2 border-dashed border-border-color rounded-xl flex flex-col items-center justify-center hover:bg-primary/5 hover:border-primary/50 transition-all group/add bg-muted-background/10">
                     <Plus class="w-6 h-6 text-muted-content group-hover/add:text-primary transition-colors opacity-30" />
                     <span class="text-[9px] font-black uppercase text-muted-content group-hover/add:text-primary mt-2 opacity-40">Add
                         Slot</span>
@@ -488,10 +491,10 @@ const anyCheckboxVisible = computed(() =>
                     </p>
                 </div>
             </div>
-            <button type="submit" :disabled="form.processing"
-                class="w-full md:w-auto px-12 py-5 bg-primary text-button-content rounded-xl font-bold hover:bg-primary hover:text-button-content!  disabled:opacity-50 shadow-xl transition-all active:scale-95">
+            <AppButton type="submit" :disabled="form.processing"
+                size="lg" class="h-16 w-full px-12 text-base md:w-auto">
                 {{ props.submitLabel }}
-            </button>
+            </AppButton>
         </div>
     </form>
 

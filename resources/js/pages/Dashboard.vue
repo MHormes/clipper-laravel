@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue';
 import CursorCard from '@/components/CursorCard.vue';
 import Skeleton from '@/components/ui/Skeleton.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -292,10 +293,10 @@ const handleStatClick = (label: string) => {
                 <div class="relative z-10">
                     <div class="mb-6 flex items-center justify-between">
                         <h3 class="text-lg font-bold">Recent Additions</h3>
-                        <Link :href="route('series.index')"
-                            class="text-xs font-bold text-primary uppercase hover:underline">
+                        <AppButton :href="route('series.index')" variant="outline-primary" size="sm"
+                            class="rounded-md font-black uppercase">
                             View All Series
-                        </Link>
+                        </AppButton>
                     </div>
 
                     <div class="space-y-4">
@@ -327,14 +328,10 @@ const handleStatClick = (label: string) => {
                                 </p>
                             </div>
 
-                            <Link :href="route('series.show', {
-                                series: item.id,
-                                slug: item.slug,
-                            })
-                                "
-                                class="rounded border border-primary/20 px-3 py-1 text-[10px] font-black text-primary uppercase transition-all hover:bg-primary hover:text-button-content!">
+                            <AppButton :href="route('series.show', { series: item.id, slug: item.slug })"
+                                variant="outline-primary" size="sm" class="h-auto rounded-md py-1 text-[10px] font-black uppercase">
                                 View Series
-                            </Link>
+                            </AppButton>
                         </div>
 
                         <div v-if="recentSeries.length === 0"

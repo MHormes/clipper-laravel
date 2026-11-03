@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 import { Eye, Clock, User as UserIcon, Layers, ClipboardList } from '@lucide/vue';
 
@@ -94,10 +95,10 @@ const formatDate = (date: string) => {
                             </div>
                         </div>
 
-                        <Link :href="route('admin.requests.series.show', item.id)"
-                            class="w-full py-4 bg-primary text-button-content rounded-2xl font-black uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-2 hover:bg-primary hover:text-button-content! transition-all shadow-lg shadow-primary/20 active:scale-95">
-                            <Eye class="w-4 h-4" /> Review Submission
-                        </Link>
+                        <AppButton :href="route('admin.requests.series.show', item.id)" size="lg"
+                            class="w-full rounded-2xl text-xs font-black uppercase tracking-[0.2em] [&_svg]:size-4">
+                            <Eye /> Review Submission
+                        </AppButton>
                     </div>
                 </div>
             </div>

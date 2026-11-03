@@ -6,7 +6,7 @@ import { useTemplateRef } from 'vue';
 // Components
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import {
     Dialog,
     DialogClose,
@@ -40,9 +40,7 @@ const passwordInput = useTemplateRef('passwordInput');
             </div>
             <Dialog>
                 <DialogTrigger as-child>
-                    <Button variant="destructive" data-test="delete-user-button"
-                        >Delete account</Button
-                    >
+                    <AppButton variant="danger" data-test="delete-user-button">Delete account</AppButton>
                 </DialogTrigger>
                 <DialogContent>
                     <Form
@@ -85,8 +83,8 @@ const passwordInput = useTemplateRef('passwordInput');
 
                         <DialogFooter class="gap-2">
                             <DialogClose as-child>
-                                <Button
-                                    variant="secondary"
+                                <AppButton
+                                    variant="outline"
                                     @click="
                                         () => {
                                             clearErrors();
@@ -95,17 +93,17 @@ const passwordInput = useTemplateRef('passwordInput');
                                     "
                                 >
                                     Cancel
-                                </Button>
+                                </AppButton>
                             </DialogClose>
 
-                            <Button
+                            <AppButton
                                 type="submit"
-                                variant="destructive"
-                                :disabled="processing"
+                                variant="danger"
+                                :loading="processing"
                                 data-test="confirm-delete-user-button"
                             >
                                 Delete account
-                            </Button>
+                            </AppButton>
                         </DialogFooter>
                     </Form>
                 </DialogContent>

@@ -2,10 +2,11 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
 import SeriesCard from '@/components/series/SeriesCard.vue';
+import AppButton from '@/components/AppButton.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
-import { ArrowLeft, Check, CheckCircle2, Loader2, Package, Search, Share2, Sparkles, X } from '@lucide/vue';
-import { computed, ref, watch } from 'vue';
+import { ArrowLeft, Check, CheckCircle2, Package, Search, Share2, Sparkles, X } from '@lucide/vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 interface Profile {
     id: string;
@@ -81,6 +82,23 @@ watch(completedOnly, () => {
     updateResults();
 });
 
+const resetFilters = async () => {
+    const filterChanged = completedOnly.value;
+
+    search.value = '';
+    completedOnly.value = false;
+
+    // Let the watchers run, then drop the debounced search request so only one visit fires.
+    await nextTick();
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+
+    if (!filterChanged) {
+        updateResults();
+    }
+};
+
 const initial = computed(() => props.profile.name.charAt(0).toUpperCase());
 
 const shareCopied = ref(false);
@@ -153,20 +171,16 @@ const toggleFollow = () => {
                             </p>
                         </div>
                         <button type="button" @click="shareProfile" title="Share profile"
-                            class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border-color bg-primary-background text-muted-content hover:text-primary hover:border-primary/40 transition-colors">
+                            class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border-color bg-primary-background text-muted-content hover:text-primary hover:border-primary/50 transition-colors">
                             <Check v-if="shareCopied" class="size-4 text-primary" />
                             <Share2 v-else class="size-4" />
                         </button>
                     </div>
 
-                    <button v-if="profile.can_follow" type="button" @click="toggleFollow" :disabled="followLoading"
-                        class="mt-4 w-full px-4 py-2.5 rounded-xl font-black text-sm uppercase tracking-wider transition-all border flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                        :class="profile.is_following
-                            ? 'bg-primary-background text-primary-content border-border-color hover:border-primary/40'
-                            : 'bg-primary text-button-content border-primary hover:bg-primary hover:text-button-content!'">
-                        <Loader2 v-if="followLoading" class="w-4 h-4 animate-spin" />
+                    <AppButton v-if="profile.can_follow" type="button" :variant="profile.is_following ? 'outline' : 'primary'"
+                        :loading="followLoading" class="mt-4 w-full font-black uppercase tracking-wider" @click="toggleFollow">
                         {{ profile.is_following ? 'Unfollow' : 'Follow' }}
-                    </button>
+                    </AppButton>
 
                     <div class="mt-4 grid grid-cols-2 gap-3">
                         <div class="rounded-xl border border-border-color bg-primary-background p-3">
@@ -226,7 +240,7 @@ const toggleFollow = () => {
                                 <input v-model="search" type="text" placeholder="Search series..."
                                     class="w-full pl-10 pr-10 py-2.5 bg-primary-background border border-border-color rounded-xl focus:ring-2 focus:ring-primary text-sm shadow-sm" />
                                 <button v-if="search" @click="search = ''"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1">
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-content p-1 hover:text-primary transition-colors">
                                     <X class="w-4 h-4" />
                                 </button>
                             </div>
@@ -234,8 +248,8 @@ const toggleFollow = () => {
                             <button type="button" @click="completedOnly = !completedOnly"
                                 class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all border"
                                 :class="completedOnly
-                                    ? 'bg-primary text-button-content border-primary'
-                                    : 'bg-primary-background text-primary-content border-border-color hover:border-primary/40'">
+                                    ? 'bg-primary text-button-content border-primary hover:brightness-90'
+                                    : 'bg-primary-background text-primary-content border-border-color hover:border-primary/50 hover:text-primary'">
                                 {{ completedOnly ? 'SHOW ALL' : 'SHOW COMPLETED ONLY' }}
                             </button>
                         </div>
@@ -259,10 +273,9 @@ const toggleFollow = () => {
                         class="w-full flex flex-col items-center justify-center py-24 bg-component-background rounded-3xl border border-dashed border-border-color">
                         <Search class="w-16 h-16 text-muted-content mb-6" />
                         <h3 class="text-3xl font-black mb-3">No Results Found</h3>
-                        <button @click="search = ''"
-                            class="px-8 py-4 bg-muted-background rounded-2xl font-black transition-all">
+                        <AppButton variant="secondary" size="lg" class="rounded-2xl font-black" @click="resetFilters">
                             RESET SEARCH
-                        </button>
+                        </AppButton>
                     </div>
 
                     <Pagination :links="series.links" />

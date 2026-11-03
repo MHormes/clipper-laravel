@@ -65,7 +65,7 @@ const mobilePageLinks = computed(() => {
         <Link
           v-else-if="previousLink?.url"
           :href="previousLink.url"
-          class="min-w-20 rounded-xl border border-border-color bg-primary-background px-3 py-2.5 text-center text-sm font-bold transition-all shadow-sm hover:border-primary/50"
+          class="min-w-20 rounded-xl border border-border-color bg-primary-background px-3 py-2.5 text-center text-sm font-bold transition-all shadow-sm hover:border-primary/50 hover:text-primary"
         >
           Prev
         </Link>
@@ -83,8 +83,8 @@ const mobilePageLinks = computed(() => {
             :href="link.url"
             class="min-w-11 rounded-xl border px-3 py-2.5 text-center text-sm font-bold transition-all shadow-sm"
             :class="link.active
-              ? 'border-primary bg-primary text-button-content'
-              : 'border-border-color bg-primary-background hover:border-primary/50'"
+              ? 'border-primary bg-primary text-button-content hover:brightness-90'
+              : 'border-border-color bg-primary-background hover:border-primary/50 hover:text-primary'"
           >
             {{ link.text }}
           </Link>
@@ -100,7 +100,7 @@ const mobilePageLinks = computed(() => {
         <Link
           v-else-if="nextLink?.url"
           :href="nextLink.url"
-          class="min-w-20 rounded-xl border border-border-color bg-primary-background px-3 py-2.5 text-center text-sm font-bold transition-all shadow-sm hover:border-primary/50"
+          class="min-w-20 rounded-xl border border-border-color bg-primary-background px-3 py-2.5 text-center text-sm font-bold transition-all shadow-sm hover:border-primary/50 hover:text-primary"
         >
           Next
         </Link>
@@ -121,8 +121,8 @@ const mobilePageLinks = computed(() => {
           :href="link.url"
           class="rounded-xl border px-5 py-2.5 text-sm font-bold transition-all shadow-sm"
           :class="link.active
-            ? 'border-primary bg-primary text-button-content'
-            : 'border-border-color bg-primary-background hover:border-primary/50'"
+            ? 'border-primary bg-primary text-button-content hover:brightness-90'
+            : 'border-border-color bg-primary-background hover:border-primary/50 hover:text-primary'"
         >
           {{ decodeLabel(link.label) }}
         </Link>

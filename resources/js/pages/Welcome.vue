@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { login, register } from '@/routes';
+import AppButton from '@/components/AppButton.vue';
 import InstallAppButton from '@/components/InstallAppButton.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import CursorCard from '@/components/CursorCard.vue';
@@ -36,13 +37,14 @@ const stats = [
                 <div class="flex items-center gap-4">
                     <InstallAppButton />
                     <Link :href="login()" class="text-sm font-medium transition hover:text-primary"> Log in </Link>
-                    <Link
+                    <AppButton
                         v-if="canRegister"
                         :href="register()"
-                        class="rounded-full bg-primary px-5 py-2 text-sm font-black text-button-content shadow-lg shadow-primary/20 transition hover:scale-105"
+                        pill
+                        class="px-5 font-black hover:scale-105"
                     >
                         Get Started
-                    </Link>
+                    </AppButton>
                 </div>
             </div>
         </nav>
@@ -59,13 +61,15 @@ const stats = [
                         collection of legendary 4-design series with precision.
                     </p>
                     <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                        <Link
+                        <AppButton
                             v-if="canRegister"
                             :href="register()"
-                            class="rounded-full bg-primary px-8 py-4 text-lg font-bold text-button-content shadow-2xl shadow-primary/20 transition hover:scale-105"
+                            size="lg"
+                            pill
+                            class="h-auto py-4 shadow-2xl hover:scale-105"
                         >
                             Start Your Collection
-                        </Link>
+                        </AppButton>
                     </div>
                 </div>
 
@@ -129,13 +133,15 @@ const stats = [
                     <p class="relative z-10 mt-4 font-medium text-button-content/80">
                         Join other collectors and get your collection organized today.
                     </p>
-                    <Link
+                    <AppButton
                         v-if="canRegister"
                         :href="register()"
-                        class="relative z-10 mt-8 inline-block rounded-full bg-primary px-10 py-4 text-xs font-black tracking-widest text-button-content uppercase shadow-xl shadow-black/20 transition hover:scale-105"
+                        size="lg"
+                        pill
+                        class="relative z-10 mt-8 h-auto px-10 py-4 text-xs font-black tracking-widest uppercase shadow-xl hover:scale-105"
                     >
                         Create Free Account
-                    </Link>
+                    </AppButton>
                 </CursorCard>
             </div>
         </section>

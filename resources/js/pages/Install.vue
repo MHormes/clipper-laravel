@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import GlobalFooter from '@/components/GlobalFooter.vue';
+import AppButton from '@/components/AppButton.vue';
 import { useInstallPrompt, type InstallPlatform } from '@/composables/useInstallPrompt';
 import { Head, Link } from '@inertiajs/vue3';
 import {
@@ -267,15 +268,17 @@ const isDetectedGuide = (guide: InstallGuide) => {
                     You’re already using the installed app. Nice!
                 </div>
 
-                <button
+                <AppButton
                     v-else-if="canPromptNatively"
                     type="button"
-                    class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-button-content shadow-2xl shadow-primary/20 transition hover:scale-105"
+                    size="lg"
+                    pill
+                    class="mt-8 h-auto py-4 shadow-2xl hover:scale-105"
                     @click="promptInstall"
                 >
-                    <Download class="size-5" />
+                    <Download />
                     Install Clipper-MS
-                </button>
+                </AppButton>
             </div>
 
             <section class="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -305,8 +308,8 @@ const isDetectedGuide = (guide: InstallGuide) => {
                         class="inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition"
                         :class="
                             selectedGroup === group.id
-                                ? 'border-primary bg-primary text-button-content'
-                                : 'border-border-color bg-component-background text-primary-content hover:border-primary'
+                                ? 'border-primary bg-primary text-button-content hover:brightness-90'
+                                : 'border-border-color bg-component-background text-primary-content hover:border-primary/50 hover:text-primary'
                         "
                         @click="selectedGroup = group.id"
                     >

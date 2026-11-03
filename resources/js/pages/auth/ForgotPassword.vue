@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui';
+import AppButton from '@/components/AppButton.vue';
 import { Input } from '@/components/ui';
 import { Label } from '@/components/ui';
-import { Spinner } from '@/components/ui';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
@@ -46,14 +45,14 @@ defineProps<{
                 </div>
 
                 <div class="mt-8 flex items-center justify-start">
-                    <Button
-                        class="w-full py-6 rounded-xl bg-[var(--primary)] text-secondary-content font-bold text-lg shadow-lg shadow-primary/20 hover:bg-[var(--primary)] hover:scale-[1.02] transition-all active:scale-[0.98]"
-                        :disabled="processing"
+                    <AppButton
+                        size="lg"
+                        class="w-full"
+                        :loading="processing"
                         data-test="email-password-reset-link-button"
                     >
-                        <Spinner v-if="processing" class="mr-2 h-4 w-4" />
                         Send Reset Link
-                    </Button>
+                    </AppButton>
                 </div>
             </Form>
 

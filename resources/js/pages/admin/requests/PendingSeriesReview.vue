@@ -4,6 +4,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 import { ChevronLeft, CheckCircle2, Info } from '@lucide/vue';
+import AppButton from '@/components/AppButton.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
 import DeclineModal from '@/components/modal/DeclineModal.vue';
 
@@ -87,10 +88,9 @@ const confirmAcceptPartial = () => {
                 <div class="flex items-center justify-between mt-4">
                     <h1 class="text-4xl font-black uppercase tracking-tighter text-primary-content">Review Series</h1>
                     <div class="flex items-center gap-3">
-                        <button @click="declineSeries"
-                            class="px-6 py-3 bg-error/10 text-error hover:bg-error hover:text-button-content!  rounded-xl font-bold uppercase tracking-widest text-xs transition-all border border-error/20">
+                        <AppButton variant="danger-soft" class="h-11 text-xs uppercase tracking-widest" @click="declineSeries">
                             Decline Request
-                        </button>
+                        </AppButton>
                     </div>
                 </div>
             </div>
@@ -189,14 +189,13 @@ const confirmAcceptPartial = () => {
 
                         <div
                             class="p-8 border-t border-border-color bg-muted-background/50 flex flex-col sm:flex-row gap-4">
-                            <button @click="acceptFull"
-                                class="flex-1 py-4 bg-primary text-button-content rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-primary hover:text-button-content!  transition-all shadow-lg shadow-primary/20 active:scale-95 flex items-center justify-center gap-2">
-                                <CheckCircle2 class="w-4 h-4" /> Accept All
-                            </button>
-                            <button @click="acceptPartial" :disabled="selectedClippers.length === 0"
-                                class="flex-1 py-4 bg-component-background text-primary border border-primary/30 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-primary hover:text-button-content!  transition-all disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-primary flex items-center justify-center gap-2">
+                            <AppButton size="lg" class="flex-1 rounded-2xl text-xs font-black uppercase tracking-[0.2em] [&_svg]:size-4" @click="acceptFull">
+                                <CheckCircle2 /> Accept All
+                            </AppButton>
+                            <AppButton variant="outline-primary" size="lg" :disabled="selectedClippers.length === 0"
+                                class="flex-1 rounded-2xl bg-component-background text-xs font-black uppercase tracking-[0.2em]" @click="acceptPartial">
                                 Accept Selected
-                            </button>
+                            </AppButton>
                         </div>
                     </div>
                 </div>
